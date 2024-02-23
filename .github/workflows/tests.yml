@@ -1,6 +1,7 @@
 name: Run Tests
 
-on: [pull_request]
+on:
+  push:
 
 permissions:
   contents: write
@@ -29,4 +30,8 @@ jobs:
           poetry install
 
       - name: Run tests
-        run: poetry run pytest
+        uses: koenhagen/measure-energy-action@v0.33
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: poetry run pytest
+          count: 30
